@@ -18,7 +18,6 @@ public class sheepController : MonoBehaviour {
         //The random spot is set 5 units away from it's initial placement position.
         randomSpot = startPos + (Random.insideUnitCircle * circleSize);
         waitingTime = Random.Range(waitMin, waitMax);
-        Debug.Log("First WaitingTime: " + waitingTime);
     }
 	
 	// Update is called once per frame
@@ -38,7 +37,6 @@ public class sheepController : MonoBehaviour {
                 waiting = false;
                 XwaitingTime -= ((int)Time.deltaTime + 1);
                 waitingTime = XwaitingTime;
-                Debug.Log("WaitingTime: " + XwaitingTime);
                 yield return new WaitForSeconds(1);
             }
         }
@@ -47,11 +45,9 @@ public class sheepController : MonoBehaviour {
     {
         if (waitingTime <= 0)
         {
-            Debug.Log("Do I enter this logic?");
             //moveSheep();
             if (transform.position != new Vector3(randomSpot.x, randomSpot.y))
             {
-                Debug.Log("I Should be moving?");
                 transform.position = Vector3.MoveTowards(transform.position, randomSpot, speed * Time.deltaTime);
             }
             else
