@@ -6,18 +6,18 @@ public class playerController : MonoBehaviour {
     public Rigidbody2D rB;
     public int moveSpeed;
     private float dotProd;
-    // Use this for initialization
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        //localVelocity is used to get the Direction in the form of a vector of the player. 
+        //This is used to determin the direction we're facing and rotate accordingly along the Z axis
+        //I'm not 100% sure about the math that makes this work, but it does. 
         Vector2 localVelocity = transform.InverseTransformDirection(GetComponent<Rigidbody2D>().velocity);
-        Debug.Log("Local Velocity: " + localVelocity); // attempt change to get git to commit//
         transform.Rotate(new Vector3(0, 0, localVelocity.y));
 
+
+        //TODO: change the input verification to horizontal/vertical so that the controls can
+        //easily be changed by the player in an option menu
         if (Input.GetKey(KeyCode.UpArrow) ||
            Input.GetKey(KeyCode.LeftArrow) ||
            Input.GetKey(KeyCode.RightArrow) ||

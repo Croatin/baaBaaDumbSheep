@@ -3,14 +3,11 @@ using System.Collections;
 
 public class sheepController : MonoBehaviour {
     
-//    private Vector2 targetLoc;
-//    public float maxDistance = 5, stillRange, speed;
-
     public static Vector2 startPos, randomSpot;
     public int speed, circleSize, waitMin, waitMax;
     private bool waiting;
     private float waitingTime;
-    // Use this for initialization
+
     void Start ()
     {
         waiting = true;
@@ -20,16 +17,18 @@ public class sheepController : MonoBehaviour {
         waitingTime = Random.Range(waitMin, waitMax);
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
+        // TL;DR : I want to wait a random amount of time between actually moving,
+        //         and waiting around.
         moveSheep();
         StartCoroutine(sittingStill(waitingTime));
-        
     }
 
     IEnumerator sittingStill(float XwaitingTime)
     {
+        // This makes sure to check if if I'm waiting or moving, then
+        // it will count down realtime
         if (waiting)
         {
             while(XwaitingTime >= 0)
@@ -43,9 +42,11 @@ public class sheepController : MonoBehaviour {
     }
     void moveSheep()
     {
+        // if I'm not waiting anymore, I'll check if my current position is my randomly selected,
+        // and if it's not, i'll move in that direction until it is. Otherwise, I'll pick a new
+        // spot, and wait a certain amount of time before I start walking to it again.w
         if (waitingTime <= 0)
         {
-            //moveSheep();
             if (transform.position != new Vector3(randomSpot.x, randomSpot.y))
             {
                 transform.position = Vector3.MoveTowards(transform.position, randomSpot, speed * Time.deltaTime);
@@ -59,59 +60,3 @@ public class sheepController : MonoBehaviour {
         }
     }
 }
-/*
-
-            Vector2 randLoc = Random.insideUnitCircle * maxDistance;
-
-        if (this.transform.position != new Vector3(randLoc.x, randLoc.y))
-        {
-            this.transform.position = Vector2.MoveTowards(transform.position, randLoc, speed * Time.deltaTime);
-        }
-        else
-            randLoc = (Random.insideUnitCircle * maxDistance) + new Vector2(this.transform.position.x, this.transform.position.y);
-
-        //while (new Vector2(this.transform.position.x, this.transform.position.y) != randLoc)
-        //{
-        //    Debug.Log("CHECKING");
-        //    //this.transform.Translate(randLoc * Time.deltaTime);
-        //    this.transform.position = Vector2.MoveTowards(this.transform.position, randLoc, maxDistance);
-        //}
-        //randLoc = Random.insideUnitCircle * maxDistance;
-
-        //stillRange = Random.Range(0, 100);
-        //if (stillRange > 50)
-        //{
-        //    float wait = Random.Range(1, 15);
-        //    StartCoroutine(sittingStill(wait));
-        //}
-_________________________________________________________________________________
-
-	public static Vector2 startPos, randomSpot;
-	public int speed, circleSize;
-	private Vector2 currentPos;
-	
-	// Use this for initialization
-	void Start () 
-	{
-		startPos = transform.position;
-		
-		//The random spot is set 5 units away from it's initial placement position.
-		randomSpot = startPos + (Random.insideUnitCircle * circleSize);
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		//If the bug's current position != the random position, it will continue to move in that direction. 
-		//otherwise, it will select a new, random position from it's original placement point.
-		if(transform.position != new Vector3(randomSpot.x, randomSpot.y))
-		{
-			transform.position = Vector3.MoveTowards(transform.position, randomSpot, speed * Time.deltaTime);
-		}
-		else
-			randomSpot = startPos + (Random.insideUnitCircle * circleSize);
-
-_____________________________________________________________________________________________    
-
-
-*/
