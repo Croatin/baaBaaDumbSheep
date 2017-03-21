@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour {
     
     void FixedUpdate()
     {
+<<<<<<< HEAD
         if (Input.GetKey(KeyCode.UpArrow)    ||
             Input.GetKey(KeyCode.LeftArrow)  ||
             Input.GetKey(KeyCode.RightArrow) ||
@@ -16,6 +17,30 @@ public class playerController : MonoBehaviour {
         {
 
         }
+=======
+        if (Input.GetKey(KeyCode.UpArrow) ||
+            Input.GetKey(KeyCode.DownArrow))
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+                rB.AddForce(Vector3.left * moveSpeed);
+            if (Input.GetKey(KeyCode.DownArrow))
+                rB.AddForce(Vector3.back * moveSpeed);
+        }
+        else
+        {
+            if (rB.velocity != Vector3.zero)
+                rB.AddForce(-rB.velocity * moveSpeed);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow) ||
+            Input.GetKey(KeyCode.RightArrow))
+        {
+            if (Input.GetKey(KeyCode.RightArrow))
+                rB.AddForce(Vector3.left * moveSpeed);
+            if (Input.GetKey(KeyCode.LeftArrow))
+                rB.AddForce(Vector3.back * moveSpeed);
+        }
+    }
+>>>>>>> refs/remotes/origin/master
 }
 /*
  *         //localVelocity is used to get the Direction in the form of a vector of the player. 
