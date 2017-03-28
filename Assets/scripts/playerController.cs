@@ -13,12 +13,43 @@ public class playerController : MonoBehaviour {
 
     void FixedUpdate()
     {
+<<<<<<< HEAD
         float movementY = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
         float movementX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         
         player.transform.Translate(movementX, 0, movementY);
         player.GetComponent<Rigidbody>().AddTorque(transform.right * movementX);
 
+=======
+        if (Input.GetKey(KeyCode.UpArrow)    ||
+            Input.GetKey(KeyCode.LeftArrow)  ||
+            Input.GetKey(KeyCode.RightArrow) ||
+            Input.GetKey(KeyCode.DownArrow))
+        {
+
+        }
+        if (Input.GetKey(KeyCode.UpArrow) ||
+            Input.GetKey(KeyCode.DownArrow))
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+                rB.AddForce(Vector3.left * moveSpeed);
+            if (Input.GetKey(KeyCode.DownArrow))
+                rB.AddForce(Vector3.back * moveSpeed);
+        }
+        else
+        {
+            if (rB.velocity != Vector3.zero)
+                rB.AddForce(-rB.velocity * moveSpeed);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow) ||
+            Input.GetKey(KeyCode.RightArrow))
+        {
+            if (Input.GetKey(KeyCode.RightArrow))
+                rB.AddForce(Vector3.left * moveSpeed);
+            if (Input.GetKey(KeyCode.LeftArrow))
+                rB.AddForce(Vector3.back * moveSpeed);
+        }
+>>>>>>> 0b8f4516fdf605ebef220a968cac8526ce4ffc1d
     }
 }
 /*
