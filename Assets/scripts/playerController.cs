@@ -2,41 +2,22 @@
 using System.Collections;
 
 public class playerController : MonoBehaviour {
-
-    public Rigidbody rB;
-    public int moveSpeed;
-    private float dotProd;
     
+    public int moveSpeed;
+    private GameObject player;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.UpArrow)    ||
-            Input.GetKey(KeyCode.LeftArrow)  ||
-            Input.GetKey(KeyCode.RightArrow) ||
-            Input.GetKey(KeyCode.DownArrow))
-        {
-
-        }
-        if (Input.GetKey(KeyCode.UpArrow) ||
-            Input.GetKey(KeyCode.DownArrow))
-        {
-            if (Input.GetKey(KeyCode.UpArrow))
-                rB.AddForce(Vector3.left * moveSpeed);
-            if (Input.GetKey(KeyCode.DownArrow))
-                rB.AddForce(Vector3.back * moveSpeed);
-        }
-        else
-        {
-            if (rB.velocity != Vector3.zero)
-                rB.AddForce(-rB.velocity * moveSpeed);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) ||
-            Input.GetKey(KeyCode.RightArrow))
-        {
-            if (Input.GetKey(KeyCode.RightArrow))
-                rB.AddForce(Vector3.left * moveSpeed);
-            if (Input.GetKey(KeyCode.LeftArrow))
-                rB.AddForce(Vector3.back * moveSpeed);
-        }
+        float movementY = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        float movementX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        
+        player.transform.Translate(movementX, 0, movementY);
+        player.GetComponent<Rigidbody>().AddTorque(transform.right * movementX);
     }
 }
 /*
